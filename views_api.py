@@ -40,7 +40,8 @@ async def api_schedules(
     if all_wallets:
         wallet_ids = (await get_user(wallet.wallet.user)).wallet_ids
 
-    return [schedule.dict() for schedule in await get_schedules(wallet_ids)]
+    return  [{**schedule.dict(), **{ "recipient": "v0.2" }} for schedule in await get_schedules(wallet_ids)]
+    
 
 
 @scheduledpayments_ext.post("/api/v1/schedule", status_code=HTTPStatus.CREATED)
